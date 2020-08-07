@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS CAR;
+DROP TABLE IF EXISTS AIRPLANE;
+
 create table CAR (
   id IDENTITY primary key,
   brand VARCHAR2(150),
