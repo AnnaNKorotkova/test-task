@@ -1,28 +1,23 @@
 package com.mcb.creditfactory.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "CAR")
-public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String brand;
-    private String model;
+public class Car extends AbstractModelEntity {
+
     private Double power;
 
-    @Column(name = "year_of_issue")
-    private Short year;
-
-    @Column(name = "assessed_value")
-    private BigDecimal value;
+    public Car(Long id, String brand, String model, Double power, Short yearOfIssue) {
+        super(id, brand, model, yearOfIssue);
+        this.power = power;
+    }
 }

@@ -1,0 +1,3 @@
+curl -d '{"type":"airplane", "id": null, "brand":"boing", "model":"777", "year":2018, "manufacturer": "boing-inc", "fuelCapacity": 65000, "seats": 350, "value": 6000000000, "date":"2019-02-20"}' -H "Content-Type: application/json" -X POST http://localhost:8090/collateral/save
+
+curl -d '{"type":"car", "id": null, "brand":"Niva1", "model":"44","power": 85.5, "year":2018, "value":1500000, "date":"2019-02-20"}' -H "Content-Type: application/json" -X POST http://localhost:8090/collateral/save

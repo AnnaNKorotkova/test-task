@@ -10,17 +10,18 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
+@Component
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonTypeName("car")
-@Component
-public class CarDto implements Collateral {
+@JsonTypeName("airplane")
+public class AirplaneDto implements Collateral {
     private Long id;
     private String brand;
     private String model;
-    private Double power;
     private Short year;
+    private String manufacturer;
+    private Integer fuelCapacity;
+    private Integer seats;
     private BigDecimal value;
     private LocalDate date;
-
 }

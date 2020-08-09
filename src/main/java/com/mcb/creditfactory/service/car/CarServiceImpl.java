@@ -1,25 +1,28 @@
 package com.mcb.creditfactory.service.car;
 
 import com.mcb.creditfactory.dto.CarDto;
+import com.mcb.creditfactory.external.CarType;
 import com.mcb.creditfactory.external.ExternalApproveService;
+import com.mcb.creditfactory.model.AssessedValue;
 import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.repository.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class CarServiceImpl implements CarService {
-    @Autowired
-    private ExternalApproveService approveService;
 
-    @Autowired
-    private CarRepository carRepository;
+    private final ExternalApproveService approveService;
+    private final CarRepository carRepository;
+    private final CarType type;
 
     @Override
     public boolean approve(CarDto dto) {
-        return approveService.approve(new CarAdapter(dto)) == 0;
+        return approveService.approve(new CarAdapter(dto), type) == 0;
     }
 
     @Override
@@ -39,20 +42,22 @@ public class CarServiceImpl implements CarService {
                 dto.getBrand(),
                 dto.getModel(),
                 dto.getPower(),
-                dto.getYear(),
-                dto.getValue()
+                dto.getYear()
         );
     }
 
     @Override
     public CarDto toDTO(Car car) {
+        AssessedValue<Car> assessedValue =
+                (AssessedValue<Car>) car.getSetValues().stream().max(Comparator.comparing(AssessedValue::getDateValue)).get();
         return new CarDto(
                 car.getId(),
                 car.getBrand(),
                 car.getModel(),
                 car.getPower(),
-                car.getYear(),
-                car.getValue()
+                car.getYearOfIssue(),
+                assessedValue.getValue(),
+                assessedValue.getDateValue()
         );
     }
 
